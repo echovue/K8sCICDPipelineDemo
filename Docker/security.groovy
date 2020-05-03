@@ -7,13 +7,13 @@ import jenkins.security.s2m.AdminWhitelistRule
 def instance = Jenkins.getInstance()
 def env = System.getenv()
 
-def user = env['ADMIN_USER']
-def pass = env['ADMIN_PASSWORD']
+def user = env['JENKINS_USER']
+def pass = env['JENKINS_PASSWORD']
 
 println "Creating Admin user if needed"
 
 if ( user == null || user.equals('') ) {
-    println "Environment variables for setting Admin user are not set (ADMIN_USER and ADMIN_PASSWORD). Skipping"
+    println "Jenkins user variables not set (JENKINS_USER and JENKINS_PASSWORD)."
 }
 else {
     println "Creating user " + user + "..."
@@ -29,3 +29,4 @@ else {
     Jenkins.instance.getInjector().getInstance(AdminWhitelistRule.class).setMasterKillSwitch(false)
 
     println "User " + user + " was created"
+}
